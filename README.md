@@ -15,7 +15,8 @@ embedded credentials. Python 3 is used only to build the configured package.
 ## Configure your environment
 
 ArQiver is tenant-specific. There is deliberately **no default live tenant**.
-Do not install the source marketplace directly: its `.example` endpoint is a placeholder.
+The source marketplace installs skills only; it deliberately has no MCP connector.
+Generate a configured package below to include the connector.
 Use the HTTPS portal address supplied by your ArQiver operator, with `/mcp`.
 A deployed portal must expose MCP and its OAuth discovery endpoints first.
 The new pattern actions also require the corresponding ArQiver server release.
@@ -29,6 +30,9 @@ python3 scripts/package.py --name my-tenant --url https://YOUR-TENANT.arqiver.co
 
 This creates `dist/my-tenant`, a local marketplace named `arqiver-my-tenant`.
 The generated package contains your endpoint only, never an access token.
+For a local demo accessed from Claude web, use a public HTTPS tunnel such as ngrok.
+Keep its URL unchanged for the OAuth session; regenerate the package when it changes.
+Do not publish a temporary tunnel URL as a permanent tenant endpoint.
 Keep that checkout available while using the local marketplace.
 For another tenant, generate another named package and use separate authenticated
 host contexts; the plugin identifier remains `arqiver`, so do not enable two copies

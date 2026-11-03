@@ -2,7 +2,7 @@
 
 Shared Claude and Codex skills, with remote HTTP MCP and browser-based OAuth.
 Configure a tenant-specific package before installation: see the repository
-README. The source endpoint `tenant.example` is intentionally nonfunctional.
+README. The unconfigured source package contains skills only, with no connector.
 No credentials are distributed. No local MCP process or Node dependency is needed.
 
 Skills: arqiver-start, arqiver-documents, arqiver-patterns.

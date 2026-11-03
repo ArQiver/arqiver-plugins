@@ -33,13 +33,15 @@ class Packages(unittest.TestCase):
             self.assertIn('\ndescription: ', text)
             self.assertIn('\n---\n', text)
         self.assertEqual(len(list((p / 'skills').glob('*/SKILL.md'))), 3)
+        self.assertFalse((p / '.mcp.json').exists())
+        self.assertFalse((p / 'mcp.json').exists())
 
     def test_generated_packages(self):
         old = pkg.ROOT
         with tempfile.TemporaryDirectory() as tmp:
             import shutil
             root = Path(tmp)
-            for name in ['plugins', '.agents', '.claude-plugin']:
+            for name in ['plugins', '.agents', '.claude-plugin', 'templates']:
                 shutil.copytree(ROOT / name, root / name)
             shutil.copy2(ROOT / 'LICENSE', root / 'LICENSE')
             pkg.ROOT = root

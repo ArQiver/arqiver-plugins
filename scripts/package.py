@@ -17,6 +17,7 @@ def validate_url(value):
     return value.rstrip("/")
 
 def package(url, name):
+    url = validate_url(url)
     if not name or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in name):
         raise ValueError("name must contain lowercase letters, digits or hyphens")
     out = ROOT / "dist" / name
@@ -26,9 +27,10 @@ def package(url, name):
     for path in ("plugins", ".claude-plugin", ".agents"):
         shutil.copytree(ROOT / path, out / path)
     shutil.copy2(ROOT / "LICENSE", out / "plugins/arqiver/LICENSE")
-    for path in ("plugins/arqiver/mcp.json", "plugins/arqiver/.mcp.json"):
+    for path, template in (("plugins/arqiver/mcp.json", "portable-mcp.json"),
+                           ("plugins/arqiver/.mcp.json", "claude-mcp.json")):
         p = out / path
-        data = json.loads(p.read_text())
+        data = json.loads((ROOT / "templates" / template).read_text())
         data["mcpServers"]["arqiver"]["url"] = url
         p.write_text(json.dumps(data, indent=2) + "\n")
     for path in (".claude-plugin/marketplace.json", ".agents/plugins/marketplace.json"):

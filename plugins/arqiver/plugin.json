@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "arqiver",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Explore ArQiver documents and test category rules with explicit previews through the tenant MCP server.",
   "author": {
     "name": "ArQiver",
