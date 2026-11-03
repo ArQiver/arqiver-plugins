@@ -1,10 +1,12 @@
-# ArQiver
+# ArQiver — Waterdam demo
 
-Shared Claude and Codex skills, with remote HTTP MCP and browser-based OAuth.
-Configure a tenant-specific package before installation: see the repository
-README. The unconfigured source package contains skills only, with no connector.
-No credentials are distributed. No local MCP process or Node dependency is needed.
+Connects directly to the Waterdam demo through its HTTPS ngrok MCP endpoint.
+Demo only; not production. Requires the demo runtime and tunnel to stay running.
+
+Install from the ArQiver marketplace and click Connect. Complete browser-based
+OAuth sign-in; no endpoint entry, packaging or pasted token is needed.
 
 Skills: arqiver-start, arqiver-documents, arqiver-patterns.
 
-[Privacy and data handling](https://github.com/ArQiver/arqiver-plugins/blob/main/PRIVACY.md).
+[Setup](https://github.com/ArQiver/arqiver-plugins#readme).
+[Privacy](https://github.com/ArQiver/arqiver-plugins/blob/main/PRIVACY.md).

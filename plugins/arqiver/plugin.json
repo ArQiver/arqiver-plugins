@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "arqiver",
-  "version": "0.1.1",
-  "description": "Explore ArQiver documents and test category rules with explicit previews through the tenant MCP server.",
+  "version": "0.1.2",
+  "description": "Waterdam demo: explore ArQiver documents and preview category rules through its live MCP connector. Not production.",
   "author": {
     "name": "ArQiver",
     "url": "https://github.com/ArQiver"

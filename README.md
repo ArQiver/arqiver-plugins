@@ -12,14 +12,38 @@ Shared skills; Claude manifest, portable Agent Plugins manifest, Codex compatibi
 manifest and marketplace catalogs. No local MCP server, runtime dependency or
 embedded credentials. Python 3 is used only to build the configured package.
 
-## Configure your environment
+## Install the Waterdam demo
 
-ArQiver is tenant-specific. There is deliberately **no default live tenant**.
-The source marketplace installs skills only; it deliberately has no MCP connector.
-Generate a configured package below to include the connector.
-Use the HTTPS portal address supplied by your ArQiver operator, with `/mcp`.
-A deployed portal must expose MCP and its OAuth discovery endpoints first.
-The new pattern actions also require the corresponding ArQiver server release.
+The repository plugin connects directly to the current **Waterdam demo**, through
+its public HTTPS ngrok endpoint. No packaging step, zip or URL entry is needed.
+This is demo data, not a production tenant. The tunnel and Mac runtime must stay
+running. If the tunnel URL changes, the repository connector must be updated and
+your installed plugin refreshed.
+
+### Claude
+
+Add `ArQiver/arqiver-plugins` as a plugin marketplace, install **arqiver**, then
+click **Connect** and complete the ArQiver sign-in. If already installed, refresh
+the marketplace and update the plugin to **0.1.2** (reinstall if the host keeps
+showing the old connector).
+
+```sh
+claude plugin marketplace add ArQiver/arqiver-plugins
+claude plugin install arqiver@arqiver-local
+```
+
+### Codex
+
+```sh
+codex plugin marketplace add ArQiver/arqiver-plugins
+codex plugin add arqiver@arqiver-local
+```
+
+Restart the session and follow OAuth sign-in. No token belongs in the plugin.
+
+## Optional: another environment
+
+For operators who need a different tenant, generate a separate local package:
 
 ```sh
 git clone https://github.com/ArQiver/arqiver-plugins.git
@@ -29,14 +53,8 @@ python3 scripts/package.py --name my-tenant --url https://YOUR-TENANT.arqiver.co
 ```
 
 This creates `dist/my-tenant`, a local marketplace named `arqiver-my-tenant`.
-The generated package contains your endpoint only, never an access token.
-For a local demo accessed from Claude web, use a public HTTPS tunnel such as ngrok.
-Keep its URL unchanged for the OAuth session; regenerate the package when it changes.
-Do not publish a temporary tunnel URL as a permanent tenant endpoint.
-Keep that checkout available while using the local marketplace.
-For another tenant, generate another named package and use separate authenticated
-host contexts; the plugin identifier remains `arqiver`, so do not enable two copies
-in the same conversation. Regeneration refuses to overwrite an existing output.
+It contains the chosen endpoint, never credentials. The following local-marketplace
+instructions apply only to this optional configuration.
 
 ## Claude Code
 

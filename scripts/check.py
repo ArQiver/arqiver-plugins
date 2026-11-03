@@ -33,8 +33,11 @@ class Packages(unittest.TestCase):
             self.assertIn('\ndescription: ', text)
             self.assertIn('\n---\n', text)
         self.assertEqual(len(list((p / 'skills').glob('*/SKILL.md'))), 3)
-        self.assertFalse((p / '.mcp.json').exists())
-        self.assertFalse((p / 'mcp.json').exists())
+        endpoints = [json.loads((p / f).read_text())['mcpServers']['arqiver']['url']
+                     for f in ['.mcp.json', 'mcp.json']]
+        self.assertEqual(endpoints[0], endpoints[1])
+        self.assertTrue(endpoints[0].startswith('https://'))
+        self.assertNotIn('tenant.example', endpoints[0])
 
     def test_generated_packages(self):
         old = pkg.ROOT

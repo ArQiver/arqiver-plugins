@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "arqiver": {
+      "type": "streamable-http",
+      "url": "https://e417-2a0d-3341-c78f-f800-7d1c-a576-3628-4c1b.ngrok-free.app/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            },
+            "baseScopes": [
+              "read",
+              "propose"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
