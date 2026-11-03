@@ -5,6 +5,10 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import sys
+from unittest.mock import patch
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import probe
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('package', ROOT / 'scripts/package.py')
@@ -53,6 +57,22 @@ class Packages(unittest.TestCase):
                     pkg.package('https://demo.arqiver.com/mcp', '../escape')
             finally:
                 pkg.ROOT = old
+
+    def test_discovery_contract(self):
+        resource = {'resource': 'https://demo.arqiver.com/mcp',
+                    'authorization_servers': ['https://demo.arqiver.com']}
+        auth = {key: 'https://demo.arqiver.com/oauth/' + key for key in
+                ['authorization_endpoint', 'token_endpoint', 'registration_endpoint']}
+        auth['code_challenge_methods_supported'] = ['S256']
+        with patch.object(probe, 'fetch', side_effect=[resource, auth]), patch('builtins.print'):
+            probe.probe('https://demo.arqiver.com/mcp')
+        with patch.object(probe, 'fetch', return_value={'resource': 'https://other.arqiver.com/mcp'}):
+            with self.assertRaises(ValueError):
+                probe.probe('https://demo.arqiver.com/mcp')
+        del auth['registration_endpoint']
+        with patch.object(probe, 'fetch', side_effect=[resource, auth]):
+            with self.assertRaises(ValueError):
+                probe.probe('https://demo.arqiver.com/mcp')
 
     def test_url_validation(self):
         for value in ['http://demo.arqiver.com/mcp', 'https://tenant.example/mcp',

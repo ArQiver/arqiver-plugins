@@ -23,6 +23,7 @@ The new pattern actions also require the corresponding ArQiver server release.
 ```sh
 git clone https://github.com/ArQiver/arqiver-plugins.git
 cd arqiver-plugins
+python3 scripts/probe.py --url https://YOUR-TENANT.arqiver.com/mcp
 python3 scripts/package.py --name my-tenant --url https://YOUR-TENANT.arqiver.com/mcp
 ```
 
