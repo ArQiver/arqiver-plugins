@@ -1,0 +1,15 @@
+{
+  "name": "arqiver-local",
+  "owner": {
+    "name": "ArQiver",
+    "url": "https://github.com/ArQiver"
+  },
+  "plugins": [
+    {
+      "name": "arqiver",
+      "source": "./plugins/arqiver",
+      "description": "Explore ArQiver documents and test category rules with explicit previews through the tenant MCP server."
+    }
+  ],
+  "description": "Tenant-configurable ArQiver document and category workflows for Claude."
+}

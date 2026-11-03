@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "arqiver",
+  "version": "0.1.0",
+  "description": "Explore ArQiver documents and test category rules with explicit previews through the tenant MCP server.",
+  "author": {
+    "name": "ArQiver",
+    "url": "https://github.com/ArQiver"
+  },
+  "homepage": "https://github.com/ArQiver/arqiver-plugins",
+  "repository": "https://github.com/ArQiver/arqiver-plugins",
+  "license": "MIT",
+  "keywords": [
+    "arqiver",
+    "documents",
+    "mcp",
+    "categories"
+  ]
+}
