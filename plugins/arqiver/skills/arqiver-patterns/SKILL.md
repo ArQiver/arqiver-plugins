@@ -24,8 +24,14 @@ membership changes for rule updates.
 4. If `needs_formatter` is returned, select a supported `formatter_id` from the
    offered `formatter_options`, as in the visual mapper. For example, choose
    currency-to-minor-units explicitly when the field needs cents. Repeat the
-   selection. Pass the last successful `preview_id` to extend that candidate
-   with another page or field. No changes are stored during these steps.
+   selection. Always use currency-to-minor-units for a cent field; digits-only
+   is not a currency conversion (EUR 12,5 means 1250 cents, not 125).
+   Pass the last successful `preview_id` to extend that candidate with another
+   page or field. Another selection for the SAME field adds an example rather
+   than replacing it. Existing examples must agree after conversion; inspect
+   fieldResults.conflictingValues when they do not. Use replace_examples true
+   only to deliberately replace an incorrect set of examples. No changes are
+   stored during these steps.
 5. Inspect `get_set_rule_preview` groups: joining, leaving, changes and after.
    Check `selections.reference_matches_selection` and the actual extracted
    `fieldResults.value` on several documents. Matching document counts do not

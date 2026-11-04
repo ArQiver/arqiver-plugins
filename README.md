@@ -24,7 +24,7 @@ your installed plugin refreshed.
 
 Add `ArQiver/arqiver-plugins` as a plugin marketplace, install **arqiver**, then
 click **Connect** and complete the ArQiver sign-in. If already installed, refresh
-the marketplace and update the plugin to **0.1.3** (reinstall if the host keeps
+the marketplace and update the plugin to **0.1.4** (reinstall if the host keeps
 showing the old connector).
 
 ```sh
