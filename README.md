@@ -24,7 +24,7 @@ your installed plugin refreshed.
 
 Add `ArQiver/arqiver-plugins` as a plugin marketplace, install **arqiver**, then
 click **Connect** and complete the ArQiver sign-in. If already installed, refresh
-the marketplace and update the plugin to **0.1.2** (reinstall if the host keeps
+the marketplace and update the plugin to **0.1.3** (reinstall if the host keeps
 showing the old connector).
 
 ```sh
@@ -97,8 +97,10 @@ should call `guide`, discover the relevant actions with `find_actions`, then use
 
 For categories: “Explore invoice patterns in this stream. Preview a candidate
 and show joining and leaving examples before applying anything.” This should use
-`get_set_rule_context`, optionally `derive_document_pattern`, `preview_set_rules`
-and paginated `get_set_rule_preview`. Only the chosen change uses
+`get_set_rule_context`, `get_document_page`, `preview_document_selection`
+and paginated `get_set_rule_preview`. The server derives layout rules and offers
+the mapper's supported value conversions. Missing optional field values stay in
+the set; only explicitly required field recognition can exclude them. Only the chosen change uses
 `apply_set_rule_preview`. A preview does not appear in the browser's local concept;
 an applied set appears in the normal ArQiver workspace.
 

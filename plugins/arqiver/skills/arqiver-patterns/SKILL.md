@@ -10,19 +10,36 @@ membership changes for rule updates.
 
 1. Establish source stream, existing set or destination stream, and category intent.
    Read representative documents and metadata with discovered read actions.
-2. Obtain `get_set_rule_context`. Use its native template and real destination
-   field identifiers. For document-shaped patterns, use `derive_document_pattern`
-   with actual page text and exact selected-text offsets, as the mapper does.
-3. Submit a candidate through `preview_set_rules`. This stores no set changes.
-   Test plausible false positives and false negatives, not just the first match.
-4. Inspect `get_set_rule_preview` groups: joining, leaving, changes and after.
-   Page through relevant examples. Present counts, representative documents,
-   unreadable-document limitations and why the category is useful. Mention manual
-   inclusions/exclusions and the seed basis when they explain membership.
-5. Use `apply_set_rule_preview` only when the user chooses that change, or has
+2. Obtain `get_set_rule_context` for the intended destination fields, then
+   `get_document_page` for a representative document. Page through its lines as
+   needed; it provides the real selectable tokens, regions and a page revision.
+3. Call `preview_document_selection` with that document, page revision and token
+   indexes containing the desired value. For part of a token, supply the exact
+   `selected_text`; the server verifies it and derives selection boundaries.
+   `purpose: map` fills `target_field_id`; missing values do not remove documents
+   by default. Use `require_for_recognition: true` only when the user wants that
+   field to decide membership. `purpose: recognise` and `purpose: exclude` use the
+   selected exact text as document criteria. ArQiver derives the native layout
+   rule. Never construct or adjust anchors, regexes, offsets or rule internals.
+4. If `needs_formatter` is returned, select a supported `formatter_id` from the
+   offered `formatter_options`, as in the visual mapper. For example, choose
+   currency-to-minor-units explicitly when the field needs cents. Repeat the
+   selection. Pass the last successful `preview_id` to extend that candidate
+   with another page or field. No changes are stored during these steps.
+5. Inspect `get_set_rule_preview` groups: joining, leaving, changes and after.
+   Check `selections.reference_matches_selection` and the actual extracted
+   `fieldResults.value` on several documents. Matching document counts do not
+   establish correct field extraction. Report missing/ambiguous values rather
+   than inventing an anchor or claiming a working template. Test false positives,
+   false negatives and documents with varying names, dates and amount formats.
+6. Use `apply_set_rule_preview` only when the user chooses that change, or has
    explicitly authorized autonomous application within this task. Apply the exact
    preview identifier reviewed. A stale or expired preview needs a new preview
    and another assessment of its effects; never silently apply different rules.
+
+Prefer page selection over the legacy plain-text `derive_document_pattern`.
+If selectable layout is unavailable, report the missing enhancement; do not
+silently replace the mapper workflow with hand-written low-level rules.
 
 The preview lives in MCP, not the browser's local concept. Applying makes a real
 set update visible in the normal workspace; it does not route documents. Return
